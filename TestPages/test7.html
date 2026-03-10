@@ -1,0 +1,6 @@
+<button id="btn">Fake Click</button>
+
+<script>
+btn.onclick = () => console.log('clicked');
+btn.dispatchEvent(new Event('click', { bubbles: true }));
+</script>
