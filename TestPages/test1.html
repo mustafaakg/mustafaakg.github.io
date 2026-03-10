@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <button id="btn">Click me</button>
+
+  <script>
+    document.getElementById('btn').addEventListener('click', e => {
+      e.stopImmediatePropagation();
+      console.log('App swallowed click');
+    }, true);
+  </script>
+</body>
+</html>
