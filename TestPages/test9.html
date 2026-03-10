@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SAP HTMLB-like Input</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 40px;
+    }
+    input {
+      padding: 8px;
+      font-size: 16px;
+      width: 300px;
+    }
+    #log {
+      margin-top: 20px;
+      font-family: monospace;
+      white-space: pre;
+      background: #111;
+      color: #0f0;
+      padding: 10px;
+      height: 200px;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+
+<h2>SAP HTMLB-style hostile input</h2>
+
+<input
+  id="sapInput"
+  type="text"
+  onfocus="thhtmlb_inputFocus(this); thSaveKbFocus(this);"
+  onblur="thhtmlb_inputBlur(this);"
+  onchange="thtmlbAutoSave(this); thtmlb_toggleInput(this);"
+  onkeydown="if (htmlbEnterKey(event)) { blur(this); focus(this); return htmlbSL(this, 2, 'FORM:submitonenter', '0'); }"
+  onkeyup="thtmlbAutoSave(this);"
+/>
+
+
+<div id="log"></div>
+
+<script>
+  const log = msg => {
+    document.getElementById('log').textContent += msg + '\n';
+  };
+
+  /* --- SAP-style framework functions --- */
+
+  function thhtmlb_inputFocus(el) {
+    log('[HTMLB] focus');
+    el._focused = true;
+  }
+
+  function thSaveKbFocus(el) {
+    log('[HTMLB] save keyboard focus');
+  }
+
+  function thhtmlb_inputBlur(el) {
+    log('[HTMLB] blur');
+    el._focused = false;
+  }
+
+  function thtmlbAutoSave(el) {
+    log('[HTMLB] autosave value = "' + el.value + '"');
+  }
+
+  function thtmlb_toggleInput(el) {
+    log('[HTMLB] toggle input state');
+  }
+
+  function htmlbEnterKey(event) {
+    return event.key === 'Enter';
+  }
+
+  function htmlbSL(el, mode, action, flag) {
+    log('[HTMLB] submit logic fired → ' + action);
+    return false; // SAP often cancels default
+  }
+
+  /* --- Hostile behavior layer --- */
+
+  // Block bubbling clicks aggressively
+  document.addEventListener('click', e => {
+    e.stopImmediatePropagation();
+  }, true);
+
+  // Prefer keyboard & focus over click
+  document.addEventListener('mousedown', e => {
+    log('[APP] mousedown intercepted');
+    e.stopPropagation();
+  }, true);
+
+  // Simulate DOM mutation on interaction
+  document.getElementById('sapInput').addEventListener('pointerdown', e => {
+    log('[APP] pointerdown → DOM mutation');
+    // simulate SAP replacing node
+    const clone = e.target.cloneNode(true);
+    e.target.replaceWith(clone);
+  }, true);
+</script>
+
+</body>
+</html>
