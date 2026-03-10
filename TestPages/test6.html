@@ -1,0 +1,9 @@
+<script>
+const original = EventTarget.prototype.addEventListener;
+EventTarget.prototype.addEventListener = function(type, fn, opt) {
+  if (type === 'click') return;
+  return original.call(this, type, fn, opt);
+};
+</script>
+
+<button>Click</button>
