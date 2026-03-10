@@ -1,0 +1,12 @@
+<custom-btn></custom-btn>
+
+<script>
+class CustomBtn extends HTMLElement {
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: 'open' });
+    shadow.innerHTML = `<button>Shadow Click</button>`;
+  }
+}
+customElements.define('custom-btn', CustomBtn);
+</script>
