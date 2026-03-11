@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Pages</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; }
+    h1 { margin-bottom: 30px; }
+    h2 { margin-top: 30px; margin-bottom: 10px; font-size: 1.1rem; color: #555; }
+    ul { list-style: none; padding: 0; }
+    li { padding: 8px 0; border-bottom: 1px solid #eee; }
+    a { color: #0066cc; text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+    .desc { color: #666; font-size: 0.85rem; }
+    .indicators { margin: 4px 0 0 0; padding: 0; list-style: none; }
+    .indicators li { border: none; padding: 2px 0; font-size: 0.85rem; color: #666; }
+  </style>
+</head>
+<body>
+  <h1>Extension Test Pages</h1>
+
+  <h2>Event Tests</h2>
+  <ul>
+    <li>
+      <a href="TestPages/test1.html">mustafaakg.github.io/TestPages/test1.html</a>
+      <div class="desc">stopImmediatePropagation() (classic killer) - Most recorders die here.</div>
+      <ul class="indicators">
+        <li>&#10060; Blocks all bubbling + capturing listeners</li>
+        <li>&#9989; Selenium IDE survives (mousedown)</li>
+        <li>&#10060; naive click recorders fail</li>
+      </ul>
+    </li>
+    <li>
+      <a href="TestPages/test2.html">mustafaakg.github.io/TestPages/test2.html</a>
+      <div class="desc">Block at document level (SAP style)</div>
+      <ul class="indicators">
+        <li>&#10060; Your document.addEventListener('click') NEVER fires</li>
+        <li>&#9989; Only mousedown/pointerdown will work</li>
+      </ul>
+    </li>
+    <li>
+      <a href="TestPages/test3.html">mustafaakg.github.io/TestPages/test3.html</a>
+      <div class="desc">Pointer-only app (React + SAP combo)</div>
+      <ul class="indicators">
+        <li>&#10060; No click</li>
+        <li>&#10060; No mouseup</li>
+        <li>&#9989; Only pointer events work</li>
+        <li>&#128073; Recorder must listen to: pointerdown, pointerup, mousedown</li>
+      </ul>
+    </li>
+    <li>
+      <a href="TestPages/test4.html">mustafaakg.github.io/TestPages/test4.html</a>
+      <div class="desc">Shadow DOM isolation (very common)</div>
+      <ul class="indicators">
+        <li>&#10060; event.target lies</li>
+        <li>&#9989; event.composedPath() required</li>
+      </ul>
+    </li>
+    <li>
+      <a href="TestPages/test5.html">mustafaakg.github.io/TestPages/test5.html</a>
+      <div class="desc">Overlay interception (SAP classic)</div>
+      <ul class="indicators">
+        <li>&#10060; Real button never receives event</li>
+        <li>&#10060; DOM target is overlay</li>
+        <li>&#9989; Need coordinate-based fallback</li>
+      </ul>
+    </li>
+    <li>
+      <a href="TestPages/test6.html">mustafaakg.github.io/TestPages/test6.html</a>
+      <div class="desc">Overwriting addEventListener (evil but real)</div>
+      <ul class="indicators">
+        <li>&#10060; Your listener never registers</li>
+        <li>&#9989; Selenium IDE works because it injects before page JS</li>
+      </ul>
+    </li>
+    <li>
+      <a href="TestPages/test7.html">mustafaakg.github.io/TestPages/test7.html</a>
+      <div class="desc">dispatchEvent instead of real click</div>
+      <ul class="indicators">
+        <li>&#10060; No real user interaction</li>
+        <li>&#10060; No mouse events</li>
+        <li>&#128073; CDP required to detect user input</li>
+      </ul>
+    </li>
+    <li>
+      <a href="TestPages/test8.html">mustafaakg.github.io/TestPages/test8.html</a>
+      <div class="desc">Canvas-only UI (absolute killer)</div>
+      <ul class="indicators">
+        <li>&#10060; No DOM element</li>
+        <li>&#10060; No selector</li>
+        <li>&#9989; Only coordinates work</li>
+      </ul>
+    </li>
+    <li>
+      <a href="TestPages/test9.html">mustafaakg.github.io/TestPages/test9.html</a>
+      <div class="desc">SAP HTMLB-style hostile input (full combo)</div>
+      <ul class="indicators">
+        <li>&#10060; DOM node replaced on every interaction</li>
+        <li>&#10060; All click events blocked at document level</li>
+        <li>&#10060; Inline handlers override external listeners</li>
+        <li>&#128073; Requires MutationObserver + pointer event strategy</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h2>Dummy Pages</h2>
+  <ul>
+    <li><a href="dummy/index.html">mustafaakg.github.io/dummy/index.html</a> <span class="desc">Basic dummy test page</span></li>
+    <li><a href="dummy1/index.html">mustafaakg.github.io/dummy1/index.html</a> <span class="desc">Form elements test page</span></li>
+    <li><a href="dummy2/index.html">mustafaakg.github.io/dummy2/index.html</a> <span class="desc">Form elements test page (variant)</span></li>
+  </ul>
+</body>
+</html>
